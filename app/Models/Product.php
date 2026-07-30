@@ -8,7 +8,8 @@ class Product extends Model
 {
     protected $fillable = ['name', 'description', 'sku', 'category', 'stock'];
 
-    public function movements(){
+    public function movements()
+    {
         return $this->hasMany(Movement::class);
     }
 }

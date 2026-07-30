@@ -15,11 +15,11 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
-        if (!$request->user()){
+        if (! $request->user()) {
             abort(401);
         }
 
-        if($request->user()->role !== $role){
+        if ($request->user()->role !== $role) {
             abort(403, 'Not authorization');
         }
 

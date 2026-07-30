@@ -8,7 +8,15 @@ class Movement extends Model
 {
     protected $fillable = ['type', 'quantity', 'product_id', 'supplier', 'reason', 'date'];
 
-    public function product(){
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+        ];
+    }
+
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
 }

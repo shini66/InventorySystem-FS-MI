@@ -10,8 +10,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::query()
-            ->when(request('category'), fn($q, $c) => $q->where('category', $c))
-            ->when(request('search'), fn($q, $s) => $q->where('name', 'like', "%($s)%"))
+            ->when(request('category'), fn ($q, $c) => $q->where('category', $c))
+            ->when(request('search'), fn ($q, $s) => $q->where('name', 'like', "%($s)%"))
             ->latest()->paginate(10);
 
         return view('products.index', compact('products'));
@@ -20,7 +20,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        return  view('products.create');
+        return view('products.create');
     }
 
     public function store(Request $request)
@@ -29,7 +29,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:150',
             'description' => 'nullable|string',
             'sku' => 'required|string|unique:products,sku',
-            'category' => 'required|string|max:100'
+            'category' => 'required|string|max:100',
         ]);
 
         Product::create($data);
@@ -48,7 +48,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:150',
             'description' => 'nullable|string',
             'sku' => 'required|string|unique:products,sku,'.$product->id,
-            'category' => 'required|string|max:100'
+            'category' => 'required|string|max:100',
         ]);
 
         $product->update($data);

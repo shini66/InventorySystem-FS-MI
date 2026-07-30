@@ -13,7 +13,7 @@ class MovementController extends Controller
     public function index()
     {
         $movements = Movement::with('product')
-            ->when(request('type'), fn($q, $t) => $q->where('type', $t))
+            ->when(request('type'), fn ($q, $t) => $q->where('type', $t))
             ->latest('date')->paginate(15);
 
         return view('movements.index', compact('movements'));
@@ -24,7 +24,7 @@ class MovementController extends Controller
     {
         $products = Product::orderBy('name')->get();
 
-        return  view('movements.create', compact('products'));
+        return view('movements.create', compact('products'));
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class MovementController extends Controller
             'product_id' => 'required|exists:products,id',
             'supplier' => 'nullable|string',
             'reason' => 'nullable|string',
-            'date' => 'required|date'
+            'date' => 'required|date',
         ]);
 
         DB::transaction(function () use ($data) {
@@ -57,5 +57,4 @@ class MovementController extends Controller
 
         return redirect()->route('movements.index')->with('success', 'Movement Register');
     }
-
 }
