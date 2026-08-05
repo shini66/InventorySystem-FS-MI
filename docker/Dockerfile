@@ -25,8 +25,9 @@ RUN apk add --no-cache \
         libpng-dev \
         libzip-dev \
         oniguruma-dev \
+        icu-dev \
         mariadb-client \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip intl
 
 COPY docker/conf/local.ini /usr/local/etc/php/conf.d/local.ini
 
