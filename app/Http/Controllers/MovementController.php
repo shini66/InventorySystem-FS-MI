@@ -42,6 +42,9 @@ class MovementController extends Controller
 
             $product = Product::findOrFail($data['product_id']);
 
+            $data['supplier'] = $data['type'] === 'entry' ? $data['supplier'] : null;
+            $data['reason'] = $data['type'] === 'exit' ? $data['reason'] : null;
+
             if ($data['type'] === 'exit' && $product->stock < $data['quantity']) {
                 throw ValidationException::withMessages(['quantity' => 'Insufficient Stock']);
             }

@@ -28,7 +28,7 @@
             @endisset
 
             <!-- Page Content -->
-            <main class="mt-6 sm:mt-8">
+            <main class="mt-8 sm:mt-10">
                 {{ $slot }}
             </main>
         </div>
