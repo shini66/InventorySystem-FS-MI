@@ -11,7 +11,7 @@ class ProductController extends Controller
     {
         $products = Product::query()
             ->when(request('category'), fn ($q, $c) => $q->where('category', $c))
-            ->when(request('search'), fn ($q, $s) => $q->where('name', 'like', "%($s)%"))
+            ->when(request('search'), fn ($q, $s) => $q->where('name', 'like', '%'.$s.'%'))
             ->latest()->paginate(10);
 
         return view('products.index', compact('products'));
