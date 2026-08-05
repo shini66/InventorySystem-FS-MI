@@ -12,7 +12,10 @@ if [ ! -f .env ] && [ -f .env.example ]; then
     cp .env.example .env
 fi
 
-if [ -f .env ] && ! grep -q '^APP_KEY=base64' .env; then
+# Si APP_KEY ya llegó por variable de entorno (env_file en Dokploy, por
+# ejemplo) no intentamos regenerarla: Laravel la toma igual y "key:generate"
+# tira error porque no puede pisar una env var ya seteada por el proceso.
+if [ -z "$APP_KEY" ] && [ -f .env ] && ! grep -q '^APP_KEY=base64' .env; then
     php artisan key:generate --force
 fi
 

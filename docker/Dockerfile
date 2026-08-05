@@ -51,3 +51,11 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 EXPOSE 9000
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["php-fpm"]
+
+# ---------- Etapa 4: nginx con el public/ ya horneado (target de producción) ----------
+# No bind-monta nada del host: sirve exactamente lo que se compiló arriba.
+# El único contenido dinámico (storage/app/public) llega por el volumen
+# nombrado "storage_public", compartido con el contenedor "app".
+FROM nginx:alpine AS nginx-prod
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=app /var/www/html/public /var/www/html/public
