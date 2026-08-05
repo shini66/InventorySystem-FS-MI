@@ -38,4 +38,6 @@ done
 
 php artisan migrate --force
 
+php artisan db:seed --class=AdminUserSeeder --force
+
 exec "$@"

@@ -21,6 +21,11 @@
                     <x-nav-link :href="route('movements.index')" :active="request()->routeIs('movements.index')">
                         Movimientos
                     </x-nav-link>
+                    @if (auth()->user()->role === 'admin')
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                            Usuarios
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -76,6 +81,11 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 Panel
             </x-responsive-nav-link>
+            @if (auth()->user()->role === 'admin')
+                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                    Usuarios
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
